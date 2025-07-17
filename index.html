@@ -1,27 +1,258 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="da">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.6/dist/htmx.min.js" integrity="sha384-Akqfrbj/HpNVo8k11SXBb6TlBWmXXlYQrCSqEWmyKJe+hDm3Z/B2WVG4smwBkRVm" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="styles.css">
+    <title>GUNST.</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Heebo:wght@900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <style>
+        :root {
+            font-size: 16px; /* Base font size for rem units */
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #FFFEF5;
+            color: black;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        h1, h2, h3 {
+            font-family: 'Heebo', sans-serif;
+            font-weight: 900;
+            margin-top: 0;
+        }
+        a {
+            color: black;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+            min-height: 100vh;
+        }
+        .primary-nav, .secondary-nav {
+            padding: 1rem;
+        }
+        .primary-nav ul, .secondary-nav ul {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .primary-nav li, .secondary-nav li {
+            margin: 0 1rem 1rem 0;
+        }
+        .main-content {
+            padding: 1rem;
+            max-width: 90%;
+            margin: 0 auto;
+        }
+        .section {
+            margin-bottom: 3rem;
+        }
+        .event {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        .event img {
+            width: 100%;
+            max-width: 30rem;
+            margin-bottom: 1rem;
+        }
+        .event-text {
+            width: 100%;
+        }
+        .board-member {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .board-member img {
+            width: 9rem;
+            height: 9rem;
+            object-fit: cover;
+            margin-bottom: 1rem;
+            border-radius: 50%;
+        }
+        .newsletter-form {
+            max-width: 25rem;
+            margin: 2rem auto;
+        }
+        .newsletter-form input {
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid black;
+            background: white;
+        }
+        .newsletter-form button {
+            padding: 0.5rem 1rem;
+            background: black;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        /* Modal for popup newsletter */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+        .modal-content {
+            background-color: #FFFEF5;
+            margin: 15% auto;
+            padding: 2rem;
+            border: 1px solid black;
+            width: 80%;
+            max-width: 31.25rem;
+        }
+        .close {
+            color: black;
+            float: right;
+            font-size: 1.75rem;
+            font-weight: bold;
+        }
+        .close:hover {
+            text-decoration: none;
+            cursor: pointer;
+        }
+        /* Desktop styles */
+        @media (min-width: 48rem) { /* 768px */
+            .container {
+                grid-template-columns: auto 1fr auto;
+                grid-template-rows: 1fr;
+            }
+            .primary-nav, .secondary-nav {
+                padding: 2rem 1rem;
+            }
+            .primary-nav ul, .secondary-nav ul {
+                flex-direction: column;
+            }
+            .primary-nav li, .secondary-nav li {
+                margin: 0 0 1.5rem 0;
+            }
+            .main-content {
+                padding: 2rem;
+                max-width: 50rem;
+            }
+            .event {
+                flex-direction: row;
+                align-items: flex-start;
+            }
+            .event img {
+                width: 40%;
+                margin-right: 2rem;
+                margin-bottom: 0;
+            }
+            .event-text {
+                width: 60%;
+            }
+            .board-member {
+                flex-direction: row;
+                align-items: flex-start;
+                text-align: left;
+            }
+            .board-member img {
+                margin-right: 1rem;
+                margin-bottom: 0;
+            }
+        }
+    </style>
 </head>
 <body>
-
-<div id="main-container">
-    <div id="content-container">
-        <h1>home</h1>
-        <p>lorem gunstum</p>
+    <div class="container">
+        <nav class="primary-nav">
+            <ul>
+                <li><a href="#" hx-get="/partials/home.html" hx-target="#content" hx-swap="innerHTML">Hjem</a></li>
+                <li><a href="#" hx-get="/partials/events.html" hx-target="#content" hx-swap="innerHTML">Events</a></li>
+                <li><a href="#" hx-get="/partials/vaerdier.html" hx-target="#content" hx-swap="innerHTML">Værdier</a></li>
+                <li><a href="#" hx-get="/partials/kontakt.html" hx-target="#content" hx-swap="innerHTML">Kontakt</a></li>
+            </ul>
+        </nav>
+        <main id="content" class="main-content">
+            <!-- Initial content: Home with integrated sections (without Events) -->
+            <div class="section">
+                <h1>Om GUNST.</h1>
+                <p>GUNST. er en platform for talentudvikling, kreativ udfoldelse og fællesskab. Gennem workshops, projekter, festivaler og netværk styrker vi det sociale og kulturelle liv i danske byer.</p>
+                <h2>Frivillig forening</h2>
+                <p>Vi er en registreret forening af ildsjælde for ildsjæle.</p>
+                <h2>Vores mission</h2>
+                <p>Vores mission er at styrke unge talenter gennem erfaring og professionalisering.</p>
+            </div>
+            <div class="section">
+                <h1>Vi laver</h1>
+                <p>Vi har samarbejdet med Roskilde Festival om workshop-arbejde. Derudover arrangerer vi niche-koncerter og støtter alternative kunstformer som traditionel indisk dans og spoken word poesi.</p>
+            </div>
+            <div class="section">
+                <h1>Sparring</h1>
+                <p>GUNST. sparring henvender sig til unge kulturskabere, der har brug for hjælp til at skabe deres egne kulturprojekter. Vi kan hjælpe med strukturering, kontakt til erfarne i vores netværk og fondssøgning.</p>
+            </div>
+            <div class="section">
+                <h1>100% frivillige</h1>
+                <p>Alt vores arbejde drives af frivillige ildsjæle, der brænder for kultur og talentudvikling.</p>
+            </div>
+        </main>
+        <nav class="secondary-nav">
+            <ul>
+                <li><a href="#" id="newsletter-link">Signup til nyhedsbrev</a></li>
+                <li><a href="https://instagram.com/gunstnere" target="_blank">Følg instagram</a></li>
+            </ul>
+        </nav>
     </div>
 
-    <div id="nav-container">
-        <button class="fancy" hx-get="/home.html" hx-target="#content-container" hx-swap="innerHTML">Home</button>
-        <button class="fancy" hx-get="/billetter.html" hx-target="#content-container" hx-swap="innerHTML">Billetter</button>
-        <button class="fancy" hx-get="/vaerdier.html" hx-target="#content-container" hx-swap="innerHTML">Værdier</button>
-        <button class="fancy" hx-get="/kontakt.html" hx-target="#content-container" hx-swap="innerHTML">Kontakt</button>
+    <!-- Newsletter Popup Modal -->
+    <div id="newsletter-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">×</span>
+            <h2>Signup til nyhedsbrev</h2>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Din email">
+                <button type="submit">Tilmeld</button>
+            </form>
+        </div>
     </div>
-</div>
-    
+
+    <script>
+        // Minimal JS for newsletter popup
+        document.addEventListener('DOMContentLoaded', function() {
+            var modal = document.getElementById('newsletter-modal');
+            var btn = document.getElementById('newsletter-link');
+            var span = document.getElementsByClassName('close')[0];
+
+            // Open via secondary nav link
+            btn.onclick = function(e) {
+                e.preventDefault();
+                modal.style.display = 'block';
+            }
+
+            span.onclick = function() {
+                modal.style.display = 'none';
+            }
+
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = 'none';
+                }
+            }
+        });
+    </script>
 </body>
 </html>
