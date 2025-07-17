@@ -8,7 +8,7 @@
     <script src="https://unpkg.com/htmx.org@1.9.10"></script>
     <style>
         :root {
-            font-size: 16px; /* Base font size for rem units */
+            font-size: 16px;
         }
         body {
             font-family: 'Roboto', sans-serif;
@@ -182,33 +182,125 @@
         <nav class="primary-nav">
             <ul>
                 <li><a href="#" hx-get="/partials/home.html" hx-target="#content" hx-swap="innerHTML">Hjem</a></li>
+                <li><a href="#" hx-get="/partials/om.html" hx-target="#content" hx-swap="innerHTML">Om</a></li>
                 <li><a href="#" hx-get="/partials/events.html" hx-target="#content" hx-swap="innerHTML">Events</a></li>
                 <li><a href="#" hx-get="/partials/vaerdier.html" hx-target="#content" hx-swap="innerHTML">Værdier</a></li>
                 <li><a href="#" hx-get="/partials/kontakt.html" hx-target="#content" hx-swap="innerHTML">Kontakt</a></li>
             </ul>
         </nav>
         <main id="content" class="main-content">
-            <!-- Initial content: Home with integrated sections (without Events) -->
-            <div class="section">
-                <h1>Om GUNST.</h1>
-                <p>GUNST. er en platform for talentudvikling, kreativ udfoldelse og fællesskab. Gennem workshops, projekter, festivaler og netværk styrker vi det sociale og kulturelle liv i danske byer.</p>
-                <h2>Frivillig forening</h2>
-                <p>Vi er en registreret forening af ildsjælde for ildsjæle.</p>
-                <h2>Vores mission</h2>
-                <p>Vores mission er at styrke unge talenter gennem erfaring og professionalisering.</p>
-            </div>
-            <div class="section">
-                <h1>Vi laver</h1>
-                <p>Vi har samarbejdet med Roskilde Festival om workshop-arbejde. Derudover arrangerer vi niche-koncerter og støtter alternative kunstformer som traditionel indisk dans og spoken word poesi.</p>
-            </div>
-            <div class="section">
-                <h1>Sparring</h1>
-                <p>GUNST. sparring henvender sig til unge kulturskabere, der har brug for hjælp til at skabe deres egne kulturprojekter. Vi kan hjælpe med strukturering, kontakt til erfarne i vores netværk og fondssøgning.</p>
-            </div>
-            <div class="section">
-                <h1>100% frivillige</h1>
-                <p>Alt vores arbejde drives af frivillige ildsjæle, der brænder for kultur og talentudvikling.</p>
-            </div>
+
+            <div class="main">
+  <h1>GUNST. Skaber <div class="roller">
+    <span id="rolltext">Koncerter<br/>
+    Vækstlag<br/>
+    Workshops<br/>
+    <span id="spare-time">vi hjælper kreative</span><br/>
+    </div>
+    </h1>
+    
+  </div>
+
+<style>
+
+    .main{
+  height:100vh;
+  width:100%;  
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
+h1{
+  text-align:center;
+  text-transform: uppercase;
+  color: black; 
+  font-size: 4rem;
+}
+
+.roller{
+  height: 4.125rem;
+  line-height: 4rem;
+  position: relative;
+  overflow: hidden; 
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  color: black;
+}
+
+
+#spare-time{
+  font-size: 1rem;
+  font-style: italic;
+  letter-spacing: 1rem;
+  margin-top: 0;
+  color: #f2a49a;
+  
+}
+
+.roller #rolltext {
+  position: absolute;
+  top: 0;
+  animation: slide 12s infinite;  
+}
+
+@keyframes slide {
+  0%{
+    top:0;
+  }
+  25%{
+    top: -4rem;    
+  }
+  50%{
+    top: -8rem;
+  }
+  72.5%{
+    top: -12.25rem;
+  }
+}
+
+@media screen and (max-width: 600px){
+  h1{
+  text-align:center;
+  text-transform: uppercase;
+  color: black; 
+  font-size: 2.125rem;
+}
+  
+  .roller{
+  height: 2.6rem; 
+  line-height: 2.125rem;  
+  }
+  
+  #spare-time {
+    font-size: 1rem;
+    letter-spacing: 0.1rem;
+  }
+  
+  .roller #rolltext {  
+  animation: slide-mob 6s infinite;  
+}
+  
+  @keyframes slide-mob {
+  0%{
+    top:0;
+  }
+  25%{
+    top: -2.125rem;    
+  }
+  50%{
+    top: -4.25rem;
+  }
+  72.5%{
+    top: -6.375rem;
+  }
+}
+}
+</style>
+
         </main>
         <nav class="secondary-nav">
             <ul>
