@@ -327,6 +327,21 @@ h1{
             <ul>
                 <li><a href="#" id="newsletter-link">Signup til nyhedsbrev</a></li>
                 <li><a href="https://instagram.com/det.gunst" target="_blank">Følg instagram</a></li>
+                <li>
+                    <form
+                    
+  id="newsletter-form"
+  action="https://formspree.io/f/movlkoaa" 
+  method="POST"
+>
+  <label for="email">Din email:</label>
+  <input type="email" name="email" id="email" required>
+  <input type="hidden" name="_redirect" value="/partials/home.html">
+  <input type="text" name="_gotcha" style="display:none">
+  
+  <button type="submit">Tilmeld</button>
+</form>
+                </li>
             </ul>
         </nav>
     </div>
